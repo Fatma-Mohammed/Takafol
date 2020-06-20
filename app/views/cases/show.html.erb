@@ -1,47 +1,217 @@
+<div class="container">
+<div class="row">
+
 <p id="notice"><%= notice %></p>
-<%= params.inspect %>
 
-<%= @case.name
+<%
+def cutter (x)
+     i=0
+    counter=x.split.count
+    $a=[]
+    while i < counter  do
+        $y=x.split(' ')[i][0].capitalize
+        i +=1
+        $a.push($y)
+     end
+     $a.join(".")
+end
 %>
-<%if donor_signed_in?%>
-    <% if !current_donor.donors_cases.where(:case_id => @case.id).any? ||
-      current_donor.donors_cases.where(:case_id => @case.id).last.state == "cancelled"  %>
 
-        <%= link_to 'Request Case Provision', provide(:case_id => @case.id), {method: :post, style: 'cursor:pointer'} %>
-    <% else %>
-        <p> Case Requested  </p>
-        <%= link_to 'Remove Case Provision', @case , method: :post,:case_id => @case.id ,style: 'cursor:pointer' %>
-
-    <% end %>
-<% end %>
-
-<%if charity_signed_in?%>
-    <% if current_charity.cases.where(id: @case.id).last.donors_cases.where(state: "pending").last.donor_id %>
-        
-        <div> Donor Requested_id : </div>
-        <%= current_charity.cases.where(id: @case.id).last.donors_cases.where(state: "pending").last.donor_id %>
-
-            <div> Donor Request State : </div>
-          <%= current_charity.cases.where(id: @case.id).last.donors_cases.last.state %>
+<%
+def percentage(needed, obtained)
+	if(needed > obtained)
+	result = (obtained.to_f / needed) * 100
+	
+	return result.to_s + "%"
+	else
+	return 100.to_s + "%"
+	end
+end
+%>
 
 
-        
-        <%= form_for @case, :url => "updatestate/"+@case.id.to_s , :html => {:method => :put} do |f| %>
+	<section class="section section-no-border background-color-light m-none">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12">
 
-           <%= f.fields_for :donors_cases do |d| %>
+							<div class="custom-box-details background-color-light custom-box-shadow-1 col-md-6 ml-xlg mb-xlg pull-right clearfix">
+								<h4>Case Details</h4>
+								<div class="col-md-6 col-sm-6 p-none">
+									<ul class="custom-list-style-1 p-none">
+										<li>
+											<span class="text-color-dark"><%= t('case.job')%>:</span>
+											<span class="custom-text-color-2"><%= @case.job%></span>
+										</li>
+										<li>
+											<span class="text-color-dark"><%= t('show.marital')%>:</span>
+											<span class="custom-text-color-2"><%= @case.marital_status%></span>
+										</li>
+										<li>
+											<span class="text-color-dark"><%= t('case.children')%>:</span>
+											<span class="custom-text-color-2"><%= @case.children_num%></span>
+										</li>
+                                        <%if @case.priority%>
+                                        <li>
+											<span class="text-color-dark"><%= t('show.priority')%>:</span>
+											<span class="custom-text-color-2">
+                                                <% (1..@case.priority).each do |i|%>
+                                                   <span class="dot" style="height: 12px;
+                                                            width: 12px;
+                                                            background-color: red;
+                                                            border-radius: 50%;
+                                                            display: inline-block;">
+                                                    </span>
 
-            <%= d.select :state, ["approved","rejected"]%>
-            <%= d.submit "Submit" %>
-            <% end %>
+                                                <%end%>
+                                            
+                                            </span>
+										</li>
+                                    <%end%>
+
+									</ul>
+								</div>
+
+                                <%if charity_signed_in?%>                       
+								<div class="col-md-6 col-sm-6 p-none">
+									<ul class="custom-list-style-1 p-none">
+										<li>
+											<span class="text-color-dark">City:</span>
+											<span class="custom-text-color-2">
+                                            <%= City.find(@case.city_id).name_en%></span>
+										</li>
+										<li>
+											<span class="text-color-dark">PHONE:</span>
+											<span class="custom-text-color-2"><%= @case.phone%></span>
+										</li>
+										<li>
+											<span class="text-color-dark">EMAIL:</span>
+											<span class="custom-text-color-2">
+                                            <%= @case.email  %>   
+                                            </span>
+										</li>
+									</ul>
+								</div>
+                                <%end%>
+
+                                    <%if donor_signed_in? && !charity_signed_in?%>
+                                        <% if !current_donor.donors_cases.where(:case_id => @case.id).any? ||
+                                        current_donor.donors_cases.where(:case_id => @case.id).last.state == "cancelled"  %>
+                                            <%= button_to t('show.request'), donor_protect_path , method: :post , params: {id: @case.id}  , :class => "btn btn-success"%>
+                                        <% else %>
+                                            <p> <strong> Case Requested </strong> </p>
+                                            <%= button_to t('show.cancel'), donor_cancel_path , method: :post , params: {id: @case.id} , :class => "btn btn-danger" %>
+                                        <% end %>
+                                <%elsif !charity_signed_in? %>
+                                    <%= button_to t('show.request') , donor_session_path, :class => "btn btn-success" %>
+                                <% end %>
+							</div>
+
+							<h2 class="text-color-quaternary font-weight-extra-bold text-uppercase"><%if !charity_signed_in?%>
+                                <%= cutter(@case.name)%>
+                                <% else %>
+                                <%= @case.name%>
+                                <% end %>
+                            </h2>
+
+							<p class="custom-text-color-2"><%= @case.description%></p>
+						</div>
+					</div>
+				</div>
+			</section>
 
 
+
+<% if @case.amount_needed >= @case.amount_obtained%>
+
+    <div style="text-align: center;">
+    
+        <div class="progress" class="d-flex justify-content-center">
+            <div class="progress-bar progress-bar-tertiary" data-appear-progress-animation=<%= percentage(@case.amount_needed,@case.amount_obtained) %> data-appear-animation-delay="600" style="width: 75%;">
+                <span class="progress-bar-tooltip" style="opacity: .3;"><%= percentage(@case.amount_needed,@case.amount_obtained) %></span>
+            </div>
+        </div>
+    
+        <%= form_with(url: checkout_create_path, method: "post" , remote: true ) do %>
+        <%= hidden_field_tag(:id, @case.id) %>
+        <%= label_tag(:amount, t('show.amount')) %>
+        <%= text_field_tag(:amount) %>
+        <%= submit_tag(t('show.donate') ,:class => "btn btn-success" )  %>
         <% end %>
 
+    </div>
+<% end %>
 
-    <% end %>
+
+
+
+
+
+
+<section class="call-to-action mb-xl">
+								<div class="call-to-action-content" style="text-align:left">
+
+<%if charity_signed_in?%>
+    <% if !current_charity.cases.empty? %>
+        <% if !current_charity.cases.where(id: @case.id).empty? %>
+            <% if !current_charity.cases.where(id: @case.id).last.donors_cases.empty? %>
+                <%if !current_charity.cases.where(id: @case.id).last.donors_cases.where(state: "pending").empty? %>
+
+
+
+
+				<h3>Requested Donor Name : <strong> <%= Donor.find(current_charity.cases.where(id: @case.id).last.donors_cases.where(state: "pending").last.donor_id).name %> </strong></h3> 
+                <h5>Address: <strong><%= Donor.find(current_charity.cases.where(id: @case.id).last.donors_cases.where(state: "pending").last.donor_id).address ? Donor.find(current_charity.cases.where(id: @case.id).last.donors_cases.where(state: "pending").last.donor_id).address : "Undefined" %><strong></h5>
+				<h5>Phone Number: <strong><%= Donor.find(current_charity.cases.where(id: @case.id).last.donors_cases.where(state: "pending").last.donor_id).phone ? Donor.find(current_charity.cases.where(id: @case.id).last.donors_cases.where(state: "pending").last.donor_id).phone : "Undefined" %></strong> </h5>
+                <p>Request State : <%= current_charity.cases.where(id: @case.id).last.donors_cases.last.state %></p>
+								</div>
+
+
+
+ <%= form_for @case, :url => "updatestate/"+@case.id.to_s , :html => {:method => :put} do |f| %>
+                    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+
+                    <%= f.fields_for :donors_cases do |d| %>
+                        <%= d.select :state, ["approved","rejected"], {}, { :class => 'custom-select' , :style =>'margin-left:3%'} %>
+
+								<div class="call-to-action-btn">
+
+                        <%= d.submit "Submit", class: "btn btn-quaternary btn-lg"%>
+
+                                                        </div>
+
+                        <% end %>
+
+								
+                                
+                    <% end %>            
+                                
+                                
+                    <% end %>
+         <% end %>
+        <% end %>
 
 <% end %>
 
 
-<%= link_to 'Edit', edit_case_path(@case) %> |
-<%= link_to 'Back', cases_path %>
+<% end %>  
+
+</section>
+
+
+
+                   
+                    
+                
+
+      <div style="text-align: center;">
+            <%if charity_signed_in?%>
+                <%if !current_charity.charities_cases.where(case_id: @case.id).last.nil? %>
+                    <%= link_to 'Edit', edit_case_path(@case) , :class => "btn" %> |
+                <% end %>
+            <% end %>
+
+            <%= link_to 'Back', cases_path , :class => "btn" %>
+      </div>
+    </div>
+</div>

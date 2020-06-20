@@ -1,1 +1,201 @@
-<%= react_component("HelloWorld", { greeting: "Hello from react-rails." }) %>
+<% content_for :headers do %>
+  <%# moved to the main layout, since style of 'home' is essential of header/footer and some other global pages %>
+<% end %>
+
+<% content_for :content do %>
+  <%= render 'slider' %>
+
+
+  <div class="home-intro-compact" id="home-introCustom">
+    <div class="container">
+
+      <div class="featured-boxes featured-boxes-style-2 featured-boxes-flat">
+        <div class="row">
+          <div class="col-md-4 col-sm-6">
+            <div class="featured-box featured-box-tertiary featured-box-effect-4">
+              <div class="box-content">
+                <i class="icon-featured fa fa-heart"></i>
+                <h4>Easy</h4>
+                <p>Easy to use so you can donate any where any time.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-6">
+            <div class="featured-box featured-box-tertiary featured-box-effect-4">
+              <div class="box-content">
+                <i class="icon-featured fa fa-check-circle"></i>
+                <h4>Trusted</h4>
+                <p>All Cases and Donors are verified</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-6">
+            <div class="featured-box featured-box-tertiary featured-box-effect-4">
+              <div class="box-content">
+                <i class="icon-featured fa fa-hourglass"></i>
+                <h4>Fast</h4>
+                <p>Online payment to make your donation process as fast as possible.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+<%# <<<<statistics>>>> %>
+
+  <section class="section section-default section-default-scale-8">
+    <div class="container">
+      <div class="row">
+        <div class="counters counters-text-light">
+          <div class="col-md-3 col-sm-6">
+            <div class="counter">
+              <strong data-to=<%= CharitiesCase.all.count %> data-append="+">1000+</strong>
+              <label>Verified Cases</label>
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-6">
+            <div class="counter">
+              <strong data-to=<%= Charity.all.count %>>5</strong>
+              <label>Registered Charities</label>
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-6">
+            <div class="counter">
+              <strong data-to=<%= Donor.all.count %>>352</strong>
+              <label>Registered Donors</label>
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-6">
+            <div class="counter">
+              <strong data-to=<%= DonorsCase.all.count %>>178</strong>
+              <label>Adopted Cases</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<section class="call-to-action call-to-action-default">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="call-to-action-content">
+									<h3>We know it is a hard time, but everything is going to be all right.</h3>
+									<p>But until it does<strong> we have your back</strong></p>
+								</div>
+								<div class="call-to-action-btn">
+									<%= link_to "Add Case", new_case_path, :class =>"btn btn-lg btn-success"%><span class="arrow hlb hidden-xs hidden-sm hidden-md appear-animation animated rotateInUpLeft appear-animation-visible" data-appear-animation="rotateInUpLeft" style="top: -12px;"></span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+
+
+<div class="container mb-xl">
+
+  <div class="container">
+    <div class="row">
+      <%= render :partial => "case", :collection => @cases.limit(6), :as => :c %>
+      <% if @cases.empty? %>
+        <div class="alert alert-warning center" role="alert">
+          No cases in the system yet..
+        </div>
+      <% end %>
+	  <div class="col-md-12" style="text-align: end;">
+		<%= link_to "Show more", cases_path, :class =>"btn btn-lg btn-borders btn-success ml-xl"%>
+		</div>
+    </div>
+  </div>
+
+<% end %>
+
+
+
+<div class="row" style="text-align:center">
+								<h1 class="mt-xl"><span style="color:#47a447">Donate</span> now and join our family!</h1>
+							</div>
+<section class="section section-default mt-none mb-xl">
+
+					<div class="home-concept appear-animation animated fadeIn appear-animation-visible" data-appear-animation="fadeIn" data-appear-animation-delay="500">
+						<svg class="home-concept-bg" x="0px" y="0px" width="345px" height="93px" viewBox="0 0 345 83" enable-background="new 0 0 345 93" xml:space="preserve">
+							<image overflow="visible" width="26" height="39" xlink:href="<%=image_path("home-concept-icons.png")%>" transform="matrix(0.169 0.1308 -0.1308 0.169 339.8496 0.6826)" class="final-pin appear-animation animated" data-appear-animation="animated-pin" data-appear-animation-delay="3650">
+							</image>
+							<path class="line appear-animation animated animated-line appear-animation-visible" fill="none" stroke="#6f6f6f" stroke-width="0.25" stroke-miterlimit="0" stroke-dasharray="0" data-appear-animation="animated-line" data-appear-animation-duration="4s" d="M7.086,87.455c8.133-8.646,54.247-51.634,155.173-36.766C268.762,66.38,327.34,17.642,337.992,10.241" style="animation-duration: 4s;"></path>
+							<path fill="none" stroke="#FFF" stroke-width="0.50" stroke-miterlimit="10" stroke-dasharray="1,2.5" d="M7.086,87.455c8.133-8.646,54.247-51.634,155.173-36.766C268.762,66.38,327.34,17.642,337.992,10.241"></path>
+							<image overflow="visible" width="26" height="39" xlink:href="<%=image_path("home-concept-pin.png")%>" transform="matrix(0.2137 0 0 0.2137 1 81.5898)" class="initial-pin appear-animation animated animated-pin appear-animation-visible" data-appear-animation="animated-pin">
+							</image>
+						</svg>
+						<div class="container">
+
+							<div class="row center">
+								<span class="sun"></span>
+								<span class="cloud" style="top: 47.1133px;"></span>
+								<div class="col-md-2 col-md-offset-1">
+									<div class="process-image">
+										<div class="box-image">
+											<svg class="small-circle" x="0px" y="0px" width="39px" height="39px" viewBox="0 0 39 39" enable-background="new 0 0 39 39" xml:space="preserve">
+												<circle class="line appear-animation animated animated-line appear-animation-visible" fill="#FFF" stroke="#6f6f6f" stroke-width="0.25" stroke-miterlimit="0" stroke-dasharray="0" data-appear-animation="animated-line" data-appear-animation-delay="800" cx="19.5" cy="19.5" r="19.063"></circle>
+												<circle fill="none" stroke="#FFF" stroke-width="0.50" stroke-miterlimit="10" stroke-dasharray="1,2.5" cx="19.5" cy="19.5" r="19.063"></circle>
+											</svg>
+											<img src=<%=image_path("abstract-location-access.png")%>   alt="" class="appear-animation animated zoomIn appear-animation-visible" data-appear-animation="zoomIn" data-appear-animation-duration="300" data-appear-animation-delay="1400">
+										</div>
+										<strong class="appear-animation animated fadeInDown appear-animation-visible" data-appear-animation="fadeInDown" data-appear-animation-delay="1150" data-plugin-options="{'accY': 200}">Stay Home</strong>
+										<p class="text-color-primary mb-xl appear-animation animated fadeInDown appear-animation-visible" data-appear-animation="fadeInDown" data-appear-animation-delay="1250" data-plugin-options="{'accY': 200}">Find nearby cases</p>
+									</div>
+								</div>
+								<div class="col-md-2">
+									<div class="process-image">
+										<div class="box-image">
+											<svg class="small-circle" x="0px" y="0px" width="39px" height="39px" viewBox="0 0 39 39" enable-background="new 0 0 39 39" xml:space="preserve">
+												<circle class="line appear-animation animated animated-line appear-animation-visible" fill="#FFF" stroke="#6f6f6f" stroke-width="0.25" stroke-miterlimit="0" stroke-dasharray="0" data-appear-animation="animated-line" data-appear-animation-delay="1200" cx="19.5" cy="19.5" r="19.063"></circle>
+												<circle fill="none" stroke="#FFF" stroke-width="0.50" stroke-miterlimit="10" stroke-dasharray="1,2.5" cx="19.5" cy="19.5" r="19.063"></circle>
+											</svg>
+											<img src=<%=image_path("abstract-co-workers.png")%>  alt="" class="appear-animation animated zoomIn appear-animation-visible" data-appear-animation="zoomIn" data-appear-animation-duration="300" data-appear-animation-delay="1900">
+										</div>
+										<strong class="appear-animation animated fadeInDown appear-animation-visible" data-appear-animation="fadeInDown" data-appear-animation-delay="2150" data-plugin-options="{'accY': 200}">Choose</strong>
+										<p class="text-color-primary mb-xl appear-animation animated fadeInDown appear-animation-visible" data-appear-animation="fadeInDown" data-appear-animation-delay="2250" data-plugin-options="{'accY': 200}">someone to help</p>
+									</div>
+								</div>
+								<div class="col-md-2">
+									<div class="process-image">
+										<div class="box-image">
+											<svg class="small-circle" x="0px" y="0px" width="39px" height="39px" viewBox="0 0 39 39" enable-background="new 0 0 39 39" xml:space="preserve">
+												<circle class="line appear-animation animated animated-line appear-animation-visible" fill="#FFF" stroke="#6f6f6f" stroke-width="0.25" stroke-miterlimit="0" stroke-dasharray="0" data-appear-animation="animated-line" data-appear-animation-delay="1700" cx="19.5" cy="19.5" r="19.063"></circle>
+												<circle fill="none" stroke="#FFF" stroke-width="0.50" stroke-miterlimit="10" stroke-dasharray="1,2.5" cx="19.5" cy="19.5" r="19.063"></circle>
+											</svg>
+											<img src=<%=image_path("abstract-easy-money.png")%> alt="" class="appear-animation animated zoomIn appear-animation-visible" data-appear-animation="zoomIn" data-appear-animation-duration="300" data-appear-animation-delay="2400">
+										</div>
+										<strong class="appear-animation animated fadeInDown appear-animation-visible" data-appear-animation="fadeInDown" data-appear-animation-delay="2650" data-plugin-options="{'accY': 200}">Donate</strong>
+										<p class="text-color-primary mb-xl appear-animation animated fadeInDown appear-animation-visible" data-appear-animation="fadeInDown" data-appear-animation-delay="2750" data-plugin-options="{'accY': 200}">click donate button</p>
+									</div>
+								</div>
+								<div class="col-md-4 col-md-offset-1">
+									<div class="project-image">
+										<div class="box-image">
+											<svg class="big-circle" x="0px" y="0px" width="85px" height="85px" viewBox="0 0 85 85" enable-background="new 0 0 85 85" xml:space="preserve">
+												<circle class="line appear-animation animated animated-line appear-animation-visible" fill="#FFF" stroke="#6f6f6f" stroke-width="0.25" stroke-miterlimit="0" stroke-dasharray="0" data-appear-animation="animated-line" data-appear-animation-delay="2250" cx="42.5" cy="42.5" r="42.063"></circle>
+												<circle fill="none" stroke="#FFF" stroke-width="0.50" stroke-miterlimit="10" stroke-dasharray="1,2.5" cx="42.5" cy="42.5" r="42.063"></circle>
+											</svg>
+											<div id="fcSlideshow" class="fc-slideshow appear-animation animated zoomIn appear-animation-visible" data-appear-animation="zoomIn" data-appear-animation-duration="300" data-appear-animation-delay="2900">
+												<ul class="fc-slides">
+													<li style="display: list-item;"><img class="img-responsive" src=<%=image_path("family.png")%> alt=""></li>
+													<li style="display: none;"><img class="img-responsive" src=<%=image_path("corona.png")%> alt=""></li>
+													<li style="display: none;"><img class="img-responsive" src=<%=image_path("shaking-hands.png")%> alt=""></li>
+												</ul>
+											<nav><div class="fc-left"><span></span><span></span><span></span><i class="fa fa-arrow-left"></i></div><div class="fc-right"><span></span><span></span><span></span><i class="fa fa-arrow-right"></i></div></nav><div class="fc-flip" style="transition: none 0s ease 0s; transform: none; display: none;"><div class="fc-front"><div><img class="img-responsive" src=<%=image_path("family.png")%> alt=""></div><div class="fc-overlay-light" style="transition: opacity 538.462ms ease 0s; opacity: 1;"></div></div><div class="fc-back" style="transform: rotate3d(1, 1, 0, 180deg);"><div><img class="img-responsive" src=<%=image_path("family.png")%> alt=""></div><div class="fc-overlay-dark" style="opacity: 0; transition: opacity 538.462ms ease 0s;"></div></div></div></div>
+										</div>
+										<strong class="our-work appear-animation animated fadeInDown appear-animation-visible" data-appear-animation="fadeInDown" data-appear-animation-delay="3150" data-plugin-options="{'accY': 300}">Together we <span style="color:#47a447">rise<span></strong>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+
+				</section>

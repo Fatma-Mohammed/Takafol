@@ -1,34 +1,214 @@
-<%= form_with(model: @case, local: true) do |form| %>
-  <% if @case.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@case.errors.count, "error") %> prohibited this case from being saved:</h2>
+<div class="panel-body form-horizontal form-bordered">
 
-      <ul>
-        <% @case.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+
+  <%= form_with(model: @case, local: true) do |f| %>
+    <% if @case.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@case.errors.count, "error") %> prohibited this case from being saved:</h2>
+
+        <ul>
+          <% @case.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <label class="col-md-3 control-label">Name</label>
+      <div class="col-md-6 control-label">
+        <div class="input-group">
+          <span class="input-group-addon">
+            <i class="fa fa-user"></i>
+          </span>
+          <%= f.text_field :name, autocomplete: "name", class: 'form-control', autofocus: true %>
+        </div>
+      </div>
     </div>
+
+    <div class="form-group">
+      <label class="col-md-3 control-label">Email</label>
+      <div class="col-md-6 control-label">
+        <div class="input-group">
+          <span class="input-group-addon">
+            <i class="fa fa-envelope"></i>
+          </span>
+          <%= f.email_field :email, autocomplete: "email", class: 'form-control' %>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-md-3 control-label">Job</label>
+      <div class="col-md-6 control-label">
+        <div class="input-group">
+          <span class="input-group-addon">
+            <i class="fa fa-user-md"></i>
+          </span>
+          <%= f.text_field :job, autocomplete: "job", class: 'form-control' %>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-md-3 control-label">Details</label>
+      <div class="col-md-6 control-label">
+        <div class="input-group">
+          <span class="input-group-addon">
+            <i class="fa fa-list"></i>
+          </span>
+          <%= f.text_area :description, class: 'form-control' %>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-md-3 control-label">Phone</label>
+      <div class="col-md-6 control-label">
+        <div class="input-group">
+          <span class="input-group-addon">
+            <i class="fa fa-phone"></i>
+          </span>
+          <%= f.text_field :phone, id: 'phone', class: 'form-control' %>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-md-3 control-label">Children Number</label>
+      <div class="col-md-6 control-label">
+        <div class="input-group">
+          <%= f.select :children_num, (0..10).to_a %>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-md-3 control-label">Marital status</label>
+      <div class="col-md-6 control-label">
+        <div class="input-group">
+          <%= f.select :marital_status, %w[Married Divorced Single], class: 'form-control' %>
+        </div>
+      </div>
+    </div>
+
+    <%# Fixme: here, there is a bug, anonymous user can send it as a param, handle in controller not here %>
+    <% if charity_signed_in? %>
+
+      <div class="form-group">
+        <label class="col-md-3 control-label">Priority</label>
+        <div class="col-md-9 control-label">
+          <div class="input-group">
+            <%= f.select :priority, (1..5).to_a, class: 'form-control' %>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-md-3 control-label">Amount Needed</label>
+        <div class="col-md-9 control-label">
+          <div class="input-group">
+            <%= f.number_field :amount_needed, class: 'form-control' %>
+          </div>
+        </div>
+      </div>
+
+    <% end %>
+
+
+    <div class="form-group">
+      <label class="col-md-3 control-label">National ID Num</label>
+      <div class="col-md-6 control-label">
+        <div class="input-group">
+          <span class="input-group-addon">
+            <i class="fa fa-id-card"></i>
+          </span>
+          <%= f.text_field :national_id, class: 'form-control' %>
+        </div>
+      </div>
+    </div>
+
+
+    <% if !charity_signed_in? %>
+      <div class="form-group">
+        <label class="col-md-3 control-label">National ID Image</label>
+        <div class="col-md-9 control-label">
+          <div class="input-group">
+            <%#= f.file_field :NID_img %>
+            <%= f.file_field :NID_img, class: 'form-control' %>
+            <%= f.hidden_field :NID_img_cache %>
+          </div>
+        </div>
+      </div>
+
+    <% end %>
+
+    <div class="form-group">
+      <label class="col-md-3 control-label">City</label>
+      <div class="col-md-6 control-label">
+        <div class="input-group">
+          <span class="input-group-addon">
+            <i class="fa fa-street-view"></i>
+          </span>
+          <select class="form-control" id="select_gov"></select>
+          <select class="form-control" id="city_id" name='case[city_id]' style="display: none;"></select>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-md-3 control-label">Detailed Address</label>
+      <div class="col-md-6 control-label">
+        <div class="input-group">
+          <span class="input-group-addon">
+            <i class="fa fa-map-marker"></i>
+          </span>
+          <%= f.text_area :address, class: 'form-control' %>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <div class="col-md-6 control-label">
+        <%= f.submit "Submit", class: 'btn btn-success' %>
+      </div>
+    </div>
+
+    <%= render 'governorates_and_cities_db' %>
+    <script>
+		// to make the first gov is empty, to force the user to chose a gov
+		// so that the event is triggered
+		let emptyGov = document.createElement('option');
+		emptyGov.value = -1;
+		emptyGov.text = 'Select Gov';
+		document.getElementById('select_gov').appendChild(emptyGov);
+
+		govs.forEach(gov => {
+			let op = document.createElement('option');
+			op.value = gov.id;
+			op.text = gov.name;
+			document.getElementById('select_gov').appendChild(op);
+		});
+
+		document.getElementById('select_gov').addEventListener('change', function () {
+
+			let selectCityElement = document.getElementById('city_id');
+			selectCityElement.style.display = 'inline';
+
+			selectCityElement.innerHTML = '';
+			let selectedGovId = parseInt(this.value);
+			let govCities = cities.filter(city => city.governorate_id === selectedGovId);
+			govCities.forEach(gov => {
+				let singleCity = document.createElement('option');
+				singleCity.value = gov.id;
+				singleCity.text = gov.name;
+				selectCityElement.appendChild(singleCity);
+			});
+		});
+    </script>
+
   <% end %>
 
-   <%= label_tag :name %>
-  <%= form.text_area :name %>
 
- <%= label_tag :job %>
-  <%= form.text_area :job %>
-
-   <%= label_tag :description %>
-  <%= form.text_area :description %>
-
-   <%= label_tag :priority %>
-  <%= form.text_area :priority %>
-
-   <%= label_tag :national_id %>
-  <%= form.text_area :national_id %>
-
-  <div class="actions">
-
-
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>

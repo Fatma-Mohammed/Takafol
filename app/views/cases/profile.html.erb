@@ -1,0 +1,140 @@
+			<%if current_charity%>	
+<div class="container">
+
+			<div class="row">
+				<div class="col-md-3">
+					<aside class="sidebar" id="sidebar" data-plugin-sticky data-plugin-options="{'minWidth': 991, 'containerSelector': '.container', 'padding': {'top': 110}}">
+
+						<h4 class="heading-primary"></h4>
+						<ul class="nav nav-list mb-xl show-bg-active">
+							<li class="active"><a data-hash data-hash-offset="85" href=<%=profile_path%>>Profile</a></li>
+							<li>
+								<a data-hash data-hash-offset="85" href="">Cases</a>
+								<ul>
+									<li><a data-hash data-hash-offset="85" href=<%=my_cases_path%>>My Cases</a></li>
+									<li><a data-hash data-hash-offset="85" href=<%=free_cases_path%>>Free Cases</a></li>
+								</ul>
+							</li>
+							<li><a data-hash data-hash-offset="85" href=<%=charity_pending_path%>>Donation Requests</a></li>
+						</ul>
+
+					</aside>
+				</div>
+				<div class="col-md-9">
+
+	<div class="col-md-12">
+
+
+
+	<div class="feature-box">
+								<div class="feature-box-icon">
+									<i class="fa fa-group"></i>
+								</div>
+								<div class="feature-box-info">
+										<h2 class="mb-sm" id="first"><%=  current_charity.name ? current_charity.name : "Undefined"  %></h2>
+									<div class="divider divider-small">
+										<hr>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+							<dl>
+			<dt>About</dt>
+								<dd><%=  current_charity.description ? current_charity.description : "Undefined"  %></dd>
+								
+								<dt>Phone number</dt>
+								<dd><%=  current_charity.phone_number ? current_charity.phone_number : "Undefined"  %></dd>
+								<dt>Address</dt>
+								<dd><%=  current_charity.address ? current_charity.address : "Undefined"  %></dd>
+								
+								<dt>Email-Address</dt>
+								<dd><%=  current_charity.email ? current_charity.email : "Undefined"  %></dd>
+			<%= link_to 'Edit Profile', edit_charity_registration_path ,:class => "btn btn-quaternary mr-xs mb-sm" %>
+							</dl>
+
+
+
+					
+				</div>
+
+			</div>
+
+		</div>
+
+<%elsif current_donor%>
+<div class="container">
+
+			<div class="row">
+				<div class="col-md-3">
+					<aside class="sidebar" id="sidebar" data-plugin-sticky data-plugin-options="{'minWidth': 991, 'containerSelector': '.container', 'padding': {'top': 110}}">
+
+						<h4 class="heading-primary"></h4>
+						<ul class="nav nav-list mb-xl show-bg-active">
+							<li class="active"><a data-hash data-hash-offset="85" href=<%=profile_path%>>Profile</a></li>
+							<li>
+								<a data-hash data-hash-offset="85" href=<%=donor_cases_path%>>My Cases</a>
+								
+								
+							</li>
+							<li><a data-hash data-hash-offset="85" href=<%=donor_pending_path%>>Donation Requests</a></li>
+						</ul>
+
+					</aside>
+				</div>
+				<div class="col-md-9">
+
+	<div class="col-md-12">
+
+
+
+	<div class="feature-box">
+								<div class="feature-box-icon">
+									<i class="fa fa-user"></i>
+								</div>
+								<div class="feature-box-info">
+										<h2 class="mb-sm" id="first"><%=  current_donor.name ? current_donor.name : "Undefined"  %></h2>
+									<div class="divider divider-small">
+										<hr>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+							<dl>
+								
+								<dt>National Id</dt>
+								<dd><%=  current_donor.national_id  ? current_donor.national_id  : "Undefined"  %></dd>
+								
+								<dt>Email-Address</dt>
+								<dd><%=  current_donor.email ? current_donor.email : "Undefined"  %></dd>
+
+								<dt>National </dt>
+								<dd><%=  current_donor.address ? current_donor.address : "Undefined"  %></dd>
+			<%= link_to 'Edit Profile', edit_charity_registration_path ,:class => "btn btn-quaternary mr-xs mb-sm" %>
+							</dl>
+
+
+
+					
+				</div>
+
+			</div>
+
+		</div>
+
+<%else%>
+
+<div class="container">
+
+	<div class="row">
+		<div class="alert alert-danger">
+		<strong>Oh!</strong> You are not authorized to view this page.<%= link_to "Sign in as charity", new_charity_session_path, :class => "alert-link" %> or 
+                             <%= link_to "Sign in as donor", new_donor_session_path, :class => "alert-link" %> to view this.
+		</div>
+	</div>
+</div>
+
+<%end%>

@@ -1,0 +1,89 @@
+<p id="notice"><%= notice %></p>
+
+<%if !@cases.empty? %>
+
+<section class="call-to-action call-to-action-quaternary mb-xl">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="call-to-action-content">
+									<h3>We know it is a hard time, but everything is going to be all right.</h3>
+									<p>But until it does<strong> we have your back</strong></p>
+								</div>
+								<div class="call-to-action-btn">
+									<%= link_to "Add Case", new_case_path, :class =>"btn btn-lg btn-success"%><span class="arrow-dark hlb hidden-xs hidden-sm hidden-md appear-animation animated rotateInUpLeft appear-animation-visible" data-appear-animation="rotateInUpLeft" style="top: -12px;"></span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+
+<div class="container">
+<div class="row">
+<div class="col-md-6">
+
+<h1>Search Results</h1>
+
+</div>
+
+
+</div>
+</div>
+
+
+
+
+
+<%
+def cutter (x)
+     i=0
+    counter=x.split.count
+    $a=[]
+    while i < counter  do
+        $y=x.split(' ')[i][0].capitalize
+        i +=1
+        $a.push($y)
+     end
+     $a.join(".")
+end
+%>
+
+
+<div class="container">
+  <div class='row'>
+<%= render :partial => "home/case", :collection => @cases, :as => :c %>
+  </div>
+
+
+
+</div>
+<div class="row">
+<%= paginate @cases %>
+</div>
+<br>
+
+
+
+</div>
+</div>
+
+<% else %>
+
+<div class="container">
+
+	<div class="row">
+		<div class="alert alert-danger">
+		<strong>Oh!</strong> It appears like there is no cases in this area, try another area or  <%= link_to "View all cases", cases_path, :class => "alert-link" %> 
+                       
+		</div>
+	</div>
+</div>
+
+<% end %>
+
+<div class="col-md-12" style="text-align: end;">
+		<%= link_to "All Cases", cases_path, :class =>"btn btn-lg btn-borders btn-success ml-xl"%>
+		</div>
+    </div>
+
+

@@ -1,0 +1,90 @@
+
+ar:
+  # activerecord doesn't exist in en file
+  activerecord:
+    models:
+      case: 'حالة'
+      charity: 'جمعية خيرية'
+      charities_case: 'الحالات الخاصة بالجمعية الخيرية'
+      city: 'مدينة'
+      governorate: 'محافظة'
+      donor: 'متبرع'
+      donors_case: 'الحالات التي يرعاها المتبرع'
+  hello: "Hello world"
+  # in the form just write <%= form.submit %>
+  helpers:
+    submit:
+      create: 'اضافة %{model}'
+      update: 'اضافة %{model}'
+  name: "الاسم"
+  email: "البريد الالكتروني"
+  address: "العنوان"
+  phone_number: "التليفون"
+  phone: "التليفون"
+  description: 'تفاصيل'
+  charity:
+    charities: 'الجمعيات الخيرية'
+    filter: 'بحث'
+  layout:
+    get_in_touch: 'اتصل بنا'
+    search: 'بحث'
+    home: 'الصفحة الرئيسية'
+    charities: 'الجمعيات الخيرية'
+    cases: 'الحالات'
+    manage_account: 'ادارة الحساب'
+    welcome: 'مرحبا'
+    sign_in: 'تسجيل دخول'
+    sign_in_charity: 'تسجيل دخول كجمعية خيرية'
+    sign_in_donor: 'تسجيل دخول كمتبرع'
+    sign_up: 'انشاء حساب'
+    sign_up_charity: 'انشاء حساب جمعية خيرية'
+    sign_up_donor: 'انشاء حساب متبرع'
+    logout: 'تسجيل خروج'
+    comming_soon: 'انتظرونا..'
+    copyrights: 'جميع الحقوق محفوظة 2020 ©'
+    contact_us: 'اتصل بنا'
+    address: 'العنوان'
+    alex_address: 'الاسكندرية - 1 شارع محمود سعيد'
+    phone: 'التليفون'
+    email: 'الايميل'
+    follow_us: 'تابعنا'
+  cases:
+    hard_times: 'نعلم انه وقت عصيب , ولكن كل شي سيكون علي ما يُرام'
+    but: 'و لكن حتي يحدث'
+    we: 'نحن بجانبك'
+    add: 'اضف حاله'
+    cases: 'الحالات'
+    filter: 'ابحث بالعنون'
+    filter_tag: 'ابحث'
+  case:
+    job: 'الوظيفه'
+    children: 'الاطفال'
+    donate: 'تبرع'
+  show:
+    details: 'تفاصيل الحاله'
+    marital: 'الحاله الاجتماعيه'
+    priority: 'الأولويه'
+    donate: 'تبرع للحاله'
+    amount: 'المبلغ'
+    request: 'لرعايه الحاله'
+    cancel: 'للالغاء'
+
+  charities:
+    charities: 'الجمعيات الخيرية'
+    filter: 'بحث'
+
+  auth:
+    login: 'دخول'
+    sign_up: 'تسجيل'
+    email: 'بريد الكتروني'
+    password: 'كلمة السر'
+    remember: 'تذكرني للمرة القادمة'
+    name: 'الاسم'
+    phone: 'التليفون'
+    description: 'التفاصيل'
+    city: 'المدينة - المركز'
+    address: 'العنوان بالتفصيل'
+    password_confirm: 'تأكيد كلمة السر'
+    national_id_num: 'رقم البطاقة الشخصية'
+
+

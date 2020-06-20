@@ -1,32 +1,184 @@
-<% if !donor_signed_in? %>
-<h2>Sign up</h2>
+<% content_for :content do %>
+  <div class="container">
+    <div class="row">
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+      <div class="col-md-6 col-md-offset-3">
+        <div class="tabs">
+          <ul class="nav nav-tabs">
+            <li class="active">
+              <a href="#popular" data-toggle="tab"><i class="fa fa-star"></i> <%= t('auth.sign_up') %></a>
+            </li>
+            <li>
+              <a href="#recent" data-toggle="tab"> <%= t('auth.login') %></a>
+            </li>
+          </ul>
+          <div class="tab-content">
+            <div id="popular" class="tab-pane active">
+              <% if !charity_signed_in? %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+                <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+                  <%= render "devise/shared/error_messages", resource: resource %>
+
+                  <div class="form-group">
+                    <label class="col-md-3 control-label"><%= t('auth.name') %></label>
+                    <div class="col-md-9 control-label">
+                      <div class="input-group">
+														<span class="input-group-addon">
+															<i class="fa fa-user"></i>
+														</span>
+                        <%= f.text_field :name, autocomplete: "name", class: 'form-control' %>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="form-group">
+                    <label class="col-md-3 control-label"><%= t('auth.email') %></label>
+                    <div class="col-md-9 control-label">
+                      <div class="input-group">
+														<span class="input-group-addon">
+															<i class="fa fa-envelope"></i>
+														</span>
+                        <%= f.email_field :email, autocomplete: "email", class: 'form-control' %>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-md-3 control-label"><%= t('auth.phone') %></label>
+                    <div class="col-md-9 control-label">
+                      <div class="input-group">
+														<span class="input-group-addon">
+															<i class="fa fa-phone"></i>
+														</span>
+                        <%= f.text_field :phone_number, id: 'phone', class: 'form-control' %>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-md-3 control-label"><%= t('auth.description') %></label>
+                    <div class="col-md-9 control-label">
+                      <div class="input-group">
+														<span class="input-group-addon">
+															<i class="fa fa-list"></i>
+														</span>
+                        <%= f.text_area :description, class: 'form-control' %>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-md-3 control-label"><%= t('auth.city') %></label>
+                    <div class="col-md-9 control-label">
+                      <div class="input-group">
+                        <span class="input-group-addon">
+                          <i class="fa fa-street-view"></i>
+                        </span>
+                        <select class="form-control" id="select_gov"></select>
+                        <select class="form-control" id="city_id" name='charity[city_id]' style="display: none;"></select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-md-3 control-label"><%= t('auth.address') %></label>
+                    <div class="col-md-9 control-label">
+                      <div class="input-group">
+                        <span class="input-group-addon">
+                          <i class="fa fa-map-marker"></i>
+                        </span>
+                        <%= f.text_area :address, id: 'address', class: 'form-control' %>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-md-3 control-label"><%= t('auth.password') %></label>
+                    <div class="col-md-9 control-label">
+                      <% if @minimum_password_length %>
+                        <em>(<%= @minimum_password_length %> characters minimum)</em>
+                      <% end %><br/>
+                      <div class="input-group">
+														<span class="input-group-addon">
+															<i class="fa fa-key"></i>
+														</span>
+                        <%= f.password_field :password, class: 'form-control' %>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-md-3 control-label"><%= t('auth.password_confirm') %></label>
+                    <div class="col-md-9 control-label">
+                      <div class="input-group">
+														<span class="input-group-addon">
+															<i class="fa fa-key"></i>
+														</span>
+                        <%= f.password_field :password_confirmation, class: 'form-control' %>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="actions">
+                    <%= f.submit t('auth.sign_up'), class: 'btn btn-success' %>
+                  </div>
+
+                  <%= render 'cases/governorates_and_cities_db' %>
+                  <% if I18n.locale == :en %>
+                    <%= javascript_include_tag 'select_city_logic' %>
+                  <% else %>
+                    <%= javascript_include_tag 'select_city_logic_ar' %>
+                  <% end %>
+
+                  <%# end form_for %>
+                <% end %>
+
+                <%# end if !charity_signed_in? %>
+              <% end %>
+
+            </div>
+            <div id="recent" class="tab-pane">
+
+              <% if !charity_signed_in? %>
+
+                <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+                  <%= f.label t('auth.email') %><br/>
+                  <div class="input-group input-group-icon">
+                    <span class="input-group-addon">
+                      <span class="icon"><i class="fa fa-envelope"></i></span>
+                    </span>
+                    <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control' %>
+                  </div>
+
+                  <%= f.label t('auth.password') %><br/>
+                  <div class="input-group input-group-icon">
+                    <span class="input-group-addon">
+                      <span class="icon"><i class="fa fa-key"></i></span>
+                    </span>
+                    <%= f.password_field :password, autocomplete: "current-password", class: 'form-control' %>
+                  </div>
+
+                  <% if devise_mapping.rememberable? %>
+                    <div class="field">
+                      <%= f.check_box :remember_me %>
+                      <%= f.label t('auth.remember') %>
+                    </div>
+                  <% end %>
+
+                  <div class="actions">
+                    <%= f.submit t('auth.login'), class: 'btn btn-success' %>
+                  </div>
+                <% end %>
+
+              <% end %>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </div>
-
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
-
-<%= render "charities/shared/links" %>
-
 <% end %>

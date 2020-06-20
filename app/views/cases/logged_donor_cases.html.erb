@@ -1,0 +1,85 @@
+<%if current_donor%>
+<div class="container">
+
+			<div class="row">
+				<div class="col-md-3">
+					<aside class="sidebar" id="sidebar" data-plugin-sticky data-plugin-options="{'minWidth': 991, 'containerSelector': '.container', 'padding': {'top': 110}}">
+
+						<h4 class="heading-primary"></h4>
+						<ul class="nav nav-list mb-xl show-bg-active">
+							<li ><a data-hash data-hash-offset="85" href=<%=profile_path%>>Profile</a></li>
+							<li class="active">
+								<a data-hash data-hash-offset="85" href=<%=donor_cases_path%>>My Cases</a>
+
+							</li>
+							<li ><a data-hash data-hash-offset="85" href=<%=donor_pending_path%>>Donation Requests</a></li>
+						</ul>
+
+					</aside>
+				</div>
+				<div class="col-md-9">
+
+	<div class="col-md-12">
+
+
+
+	<div class="feature-box">
+								<div class="feature-box-icon">
+									<i class="fa fa-user"></i>
+								</div>
+								<div class="feature-box-info">
+										<h2 class="mb-sm" id="first"><%=  current_donor.name ? current_donor.name : "Undefined"  %></h2>
+									<div class="divider divider-small">
+										<hr>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+							
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+   
+     
+    <% @cases.each do |c| %>
+    <tr>
+        <td> <%= c.name %></td>
+        <td><%= link_to 'Show', c , :class => "btn btn-quaternary mr-xs mb-sm" %> </td>
+        <td> <%= button_to "Dismiss" , donor_cancel_path , method: :post , params: {id: c.id} ,data: { confirm: 'Are you sure?' }, :class => "btn btn-danger" %></td>
+    </tr>
+    <% end %>
+    
+
+  </tbody>
+</table>
+<div class="row">
+<%= paginate @cases %>
+</div>
+
+					
+				</div>
+
+			</div>
+
+		</div>
+
+<%else%>
+
+<div class="container">
+
+	<div class="row">
+		<div class="alert alert-danger">
+		<strong>Oh!</strong> You are not authorized to view this page.<%= link_to "Sign in as charity", new_charity_session_path, :class => "alert-link" %> or 
+                             <%= link_to "Sign in as donor", new_donor_session_path, :class => "alert-link" %> to view this.
+		</div>
+	</div>
+</div>
+
+<%end%>

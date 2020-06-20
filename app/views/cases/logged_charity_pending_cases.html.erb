@@ -1,0 +1,81 @@
+			<%if current_charity%>	
+        <div class="container">
+
+					<div class="row">
+						<div class="col-md-3">
+							<aside class="sidebar" id="sidebar" data-plugin-sticky data-plugin-options="{'minWidth': 991, 'containerSelector': '.container', 'padding': {'top': 110}}">
+
+								<h4 class="heading-primary"></h4>
+								<ul class="nav nav-list mb-xl show-bg-active">
+									<li ><a data-hash data-hash-offset="85" href=<%=profile_path%>>Profile</a></li>
+									<li >
+										<a data-hash data-hash-offset="85" href="">Cases</a>
+										<ul>
+											<li><a data-hash data-hash-offset="85" href=<%=my_cases_path%>>My Cases</a></li>
+											<li><a data-hash data-hash-offset="85" href=<%=free_cases_path%>>Free Cases</a></li>
+										</ul>
+									</li>
+									<li class="active"><a data-hash data-hash-offset="85" href=<%=charity_pending_path%>>Donation Requests</a></li>
+								</ul>
+
+							</aside>
+						</div>
+						<div class="col-md-9">
+
+
+<h2 class="mb-sm" id="first">Pending Donation Requests</h2>
+ 
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+   
+     
+     <% @cases.each do |c| %>
+         <tr>
+         <td> <%= c.name %></td>
+        <td><%= link_to 'Show', c, :class => "btn btn-quaternary mr-xs mb-sm" %> </td>
+        <td><%= link_to 'Edit', edit_case_path(c) , :class => "btn btn-quaternary mr-xs mb-sm" %> 
+    </tr>
+    <% end %>
+    
+
+  </tbody>
+</table>
+
+
+ <div class="row">
+
+<%= paginate @cases %>
+</div>
+
+            
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+<%else%>
+
+<h1> You are not authorized to view this page </h1>
+
+<%end%>
+
+
+
+
+
+
+
+

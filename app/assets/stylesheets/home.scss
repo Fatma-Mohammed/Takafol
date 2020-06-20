@@ -1,3 +1,87 @@
-// Place all the styles related to the home controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: https://sass-lang.com/
+
+@import "porto/vendor/animate.min";;
+@import "porto/vendor/simple-line-icons.min";
+@import "porto/vendor/owl.carousel.min";
+@import "porto/vendor/owl.theme.default.min";
+@import "porto/vendor/magnific-popup.min";
+
+@import "porto/theme";
+@import "porto/theme-elements";
+@import "porto/theme-blog";
+@import "porto/theme-shop";
+
+@import "porto/vendor/settings";
+@import "porto/vendor/layers";
+@import "porto/vendor/navigation";
+@import "porto/vendor/component";
+
+@import "porto/skins/default";
+
+@import "porto/custom";
+
+/* ////////////////////////donation process */
+
+
+
+section.section {
+    background: #f4f4f452;
+    border-top: 5px none;
+}
+
+.home-concept strong{
+    color: #282828;
+    line-height: 1;
+}
+
+html .text-color-primary {
+    color: #47a447 !important;
+}
+
+.call-to-action.call-to-action-default {
+    background: #fff;
+}
+
+.home-concept .sun {
+    background: transparent url(image_path("home-concept-icons.png")) no-repeat 0 0;
+    width: 60px;
+    height: 56px;
+    display: block;
+    position: absolute;
+    left: 10%;
+    top: 35px;
+}
+
+.home-concept .cloud {
+    background: transparent url(image_path("home-concept-icons.png")) no-repeat 100% 0;
+    width: 116px;
+    height: 56px;
+    display: block;
+    position: absolute;
+    left: 57%;
+    top: 35px;
+} 
+
+
+.arrow {
+    background: transparent url(image_path("arrows.png")) no-repeat 0 0;
+        background-position-x: 0px;
+        background-position-y: 0px;
+    width: 47px;
+    height: 120px;
+    display: inline-block;
+    position: relative;
+}
+.arrow-dark {
+    background: transparent url(image_path("arrows-dark.png")) no-repeat 0 0;
+        background-position-x: 0px;
+        background-position-y: 0px;
+    width: 47px;
+    height: 120px;
+    display: inline-block;
+    position: relative;
+}
+.arrow-dark.hlb {
+    background-position: -209px -101px;
+    width: 120px;
+    height: 47px;
+}

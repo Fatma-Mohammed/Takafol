@@ -1,0 +1,60 @@
+<% content_for :content do %>
+  <%# TODO: add pagination  %>
+  <div class="container">
+    <h1 class="center heading-dark"><%= t('charity.charities') %></h1>
+    <h3 class="heading-middle-border">
+      <% if !params['city_id'].nil? %>
+        Viewing only charities in: <%= City.find(params['city_id']).name %>
+      <% end %>
+    </h3>
+    <% if !notice.nil? %>
+      <p class="alert alert-danger center">
+        <%= notice %>
+      </p>
+    <% end %>
+    <div class="row center">
+      <form action="" method="get" class="center">
+        <div class="form-group">
+          <div class="col-md-6 control-label">
+            <div class="input-group">
+              <span class="input-group-addon">
+                <i class="fa fa-street-view"></i>
+              </span>
+              <select class="form-control" id="select_gov"></select>
+              <select class="form-control" id="city_id" name='city_id' style="display: none;"></select>
+            </div>
+          </div>
+          <input type="submit" class="btn btn-success col-md-3" value="<%= t('charities.filter') %>"/>
+        </div>
+      </form>
+      <%= javascript_include_tag 'cities_db', 'data-turbolinks-track': 'reload' %>
+      <% if I18n.locale == :en %>
+        <%= javascript_include_tag 'select_city_logic' %>
+      <% else %>
+        <%= javascript_include_tag 'select_city_logic_ar' %>
+      <% end %>
+
+    </div>
+    <div class="row">
+
+      <table class="table table-bordered <%= I18n.locale == :ar ? 'rtl' : '' %>">
+        <thead class="thead-dark">
+        <tr>
+          <th><%= t 'name' %></th>
+          <th><%= t 'email' %></th>
+          <th><%= t 'address' %></th>
+          <th><%= t 'phone_number' %></th>
+          <th><%= t 'description' %></th>
+        </tr>
+        </thead>
+        <tbody>
+        <%= render @charities %>
+        </tbody>
+      </table>
+
+      <div class="row">
+<%= paginate @charities %>
+</div>
+    </div>
+  </div>
+<% end %>

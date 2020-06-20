@@ -1,5 +1,20 @@
-<h1>New Case</h1>
+<% content_for :content do %>
+  <div class="container">
+    <div class='row rounded border-white'>
+      <h2 class="heading-dark center">New Case</h2>
+      <% if !notice.nil? %>
+        <div class="alert alert-success center" role="alert">
+          <%= notice %>
+          <br>
+          <% if !flash[:city_id].nil? %>
+          while we are revising your case. you can search for charities in
+            <%= link_to City.find(flash['city_id']).name, '/charities?city_id=' + flash['city_id'].to_s %>
+          <% end %>
+        </div>
+      <% end %>
+      <%= render 'form', case: @case %>
+      <%= link_to 'Back', cases_path %>
+    </div>
+  </div>
+<% end %>
 
-<%= render 'form', case: @case %>
-
-<%= link_to 'Back', cases_path %>

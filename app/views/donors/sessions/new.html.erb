@@ -1,29 +1,163 @@
-<% if !charity_signed_in? %>
+<% content_for :content do %>
 
-<h2>Log in</h2>
+  <div class="container">
+    <div class="row">
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+      <div class="col-md-6 col-md-offset-3">
+        <div class="tabs">
+          <ul class="nav nav-tabs">
+            <li class="active">
+              <a href="#popular" data-toggle="tab"><i class="fa fa-user"></i> Login</a>
+            </li>
+            <li>
+              <a href="#recent" data-toggle="tab"> Sign up</a>
+            </li>
+          </ul>
+          <div class="tab-content">
+            <div id="popular" class="tab-pane active">
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
 
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+              <% if !charity_signed_in? %>
+
+                <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+                  <%= f.label :email %><br/>
+                  <div class="input-group input-group-icon">
+                    <span class="input-group-addon">
+                      <span class="icon"><i class="fa fa-envelope"></i></span>
+                    </span>
+                    <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control' %>
+                  </div>
+
+                  <%= f.label :password %><br/>
+                  <div class="input-group input-group-icon">
+														<span class="input-group-addon">
+															<span class="icon"><i class="fa fa-key"></i></span>
+														</span>
+                    <%= f.password_field :password, autocomplete: "current-password", class: 'form-control' %>
+                  </div>
+
+                  <% if devise_mapping.rememberable? %>
+                    <div class="field">
+                      <%= f.check_box :remember_me %>
+                      <%= f.label :remember_me %>
+                    </div>
+                  <% end %>
+
+                  <div class="actions">
+                    <%= f.submit "Log in", class: 'btn btn-success' %>
+                  </div>
+                <% end %>
+
+                <%= render "donors/shared/links" %>
+              <% end %>
+
+            </div>
+            <div id="recent" class="tab-pane">
+
+              <% if !donor_signed_in? %>
+                <h2>Sign up</h2>
+                <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+                  <%= render "devise/shared/error_messages", resource: resource %>
+
+
+                  <div class="form-group">
+                    <label class="col-md-3 control-label">Name</label>
+                    <div class="col-md-9 control-label">
+                      <div class="input-group">
+														<span class="input-group-addon">
+															<i class="fa fa-user"></i>
+														</span>
+                        <%= f.text_field :name, autocomplete: "name", class: 'form-control' %>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-md-3 control-label">Email</label>
+                    <div class="col-md-9 control-label">
+                      <div class="input-group">
+														<span class="input-group-addon">
+															<i class="fa fa-envelope"></i>
+														</span>
+                        <%= f.email_field :email, autocomplete: "email", class: 'form-control' %>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-md-3 control-label">Phone</label>
+                    <div class="col-md-9 control-label">
+                      <div class="input-group">
+														<span class="input-group-addon">
+															<i class="fa fa-phone"></i>
+														</span>
+                        <%= f.text_field :phone, autocomplete: "phone", id: 'phone', class: 'form-control' %>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-md-3 control-label">Password</label>
+                    <div class="col-md-9 control-label">
+                      <% if @minimum_password_length %>
+                        <em>(<%= @minimum_password_length %> characters minimum)</em>
+                      <% end %><br/>
+                      <div class="input-group">
+														<span class="input-group-addon">
+															<i class="fa fa-key"></i>
+														</span>
+                        <%= f.password_field :password, class: 'form-control' %>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-md-3 control-label">Password Confirmation</label>
+                    <div class="col-md-9 control-label">
+                      <div class="input-group">
+														<span class="input-group-addon">
+															<i class="fa fa-key"></i>
+														</span>
+                        <%= f.password_field :password_confirmation, class: 'form-control' %>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-md-3 control-label">National ID Num</label>
+                    <div class="col-md-9 control-label">
+                      <div class="input-group">
+														<span class="input-group-addon">
+															<i class="fa fa-id-card"></i>
+														</span>
+                        <%= f.text_field :national_id, class: 'form-control' %>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="actions">
+                    <%= f.submit "Sign up", class: 'btn btn-success' %>
+                  </div>
+                <% end %>
+
+                <%= render "donors/shared/links" %>
+              <% end %>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+
     </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
   </div>
+
 <% end %>
 
-<%= render "donors/shared/links" %>
-<% end %>
+
+
+
+
+
+

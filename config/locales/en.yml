@@ -31,3 +31,81 @@
 
 en:
   hello: "Hello world"
+  helpers:
+    submit:
+      create: 'Create %{model}'
+      update: 'Create %{model}'
+  name: 'Name'
+  email: 'Email'
+  address: 'Address'
+  phone_number: 'Phone'
+  phone: 'phone'
+  description: 'Description'
+  charity:
+    charities: 'الجمعيات الخيرية'
+    filter: 'بحث'
+  layout:
+    get_in_touch: 'Get in touch!'
+    search: 'search'
+    home: 'Home'
+    charities: 'Charities'
+    cases: 'Cases'
+    manage_account: 'Manage Account'
+    welcome: 'Welcome'
+    sign_in: 'sign in'
+    sign_in_charity: 'sign in as charity'
+    sign_in_donor: 'sign in as donor'
+    sign_up: 'sign up'
+    sign_up_charity: 'sign up as charity'
+    sign_up_donor: 'sign up as donor'
+    logout: 'Log out'
+    comming_soon: 'comming soon..'
+    copyrights: '© Copyright 2020. All Rights Reserved.'
+    contact_us: 'Contact Us'
+    address: 'Address'
+    alex_address: '1 Mahmoud Said St., Shohada Square, Main Post Office Building, Alexandri'
+    phone: 'Phone'
+    email: 'Email'
+    follow_us: 'Follow Us'
+  cases:
+    hard_times: 'We know it is a hard time, but everything is going to be all right.'
+    but: 'But until it does' 
+    we: 'we have your back'
+    add: 'Add Case'
+    job: 'job'
+    cases: 'All Cases'
+    filter: 'Filter by address'
+    filter_tag: 'Filter'
+  case:
+    job: 'Job'
+    children: 'Children'
+    donate: 'Donate'
+  show:
+    details: 'Case Details'
+    amount: 'Amount'
+    request: 'Request Case Protection'
+    donate: 'Donate To Case'
+    priority: 'Priority'
+    marital: 'Marital Status'
+    cancel: 'Remove Case Protection'
+    latest_news: 'Latest news'
+
+  charities:
+    charities: 'charities'
+    filter: 'filter'
+
+  auth:
+    login: 'Login'
+    sign_up: 'iign_up'
+    email: 'Email'
+    password: 'Password'
+    remember: 'Remember me?'
+    name: 'Name'
+    phone: 'Phone'
+    description: 'Description'
+    city: 'City'
+    address: 'Address'
+    password_confirm: 'Confirm passowrd'
+    national_id_num: 'national ID Number'
+
+ 

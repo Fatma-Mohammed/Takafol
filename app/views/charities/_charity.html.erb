@@ -1,0 +1,7 @@
+<tr>
+  <td><%= link_to charity.name, charity_path(charity) %></td>
+  <td><%= charity.email %></td>
+  <td><%= charity.address %></td>
+  <td><%= charity.phone_number %></td>
+  <td><%= charity.description.truncate(100) %></td>
+</tr>

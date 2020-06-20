@@ -1,75 +1,47 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Takafol</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+  <title>Takafol -
+    <%= yield(:Title) %>
+  </title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <%= javascript_include_tag "application" %>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-<%= javascript_pack_tag 'application' %>
-  </head>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
-  <body>
-     <% if donor_signed_in? %>
-           <p class="navbar-text float-right">
-          <h2>Donor</h2>
-          <% if donor_signed_in? %>
-            Logged in as <strong><%= current_donor.email %></strong>.
-            <%= link_to 'Edit profile', edit_donor_registration_path, :class => 'navbar-link' %> |
-            <%= link_to "Logout", destroy_donor_session_path, method: :delete, :class => 'navbar-link'  %>
-          <% else %>
-            <%= link_to "Sign up", new_donor_registration_path, :class => 'navbar-link'  %> |
-            <%= link_to "Login", new_donor_session_path, :class => 'navbar-link'  %>
-          <% end %>
-          </p>
+  <!--  custom style for this page (assets/stylesheets/home)-->
+  <%= stylesheet_link_tag 'home', media: 'all' %>
 
-      <% elsif charity_signed_in? %>
-         <p class="navbar-text float-right">
-          <h2>Charity</h2>
-          <% if charity_signed_in? %>
-            Logged in as <strong><%= current_charity.email %></strong>.
-            <%= link_to 'Edit profile', edit_charity_registration_path, :class => 'navbar-link' %> |
-            <%= link_to "Logout", destroy_charity_session_path, method: :delete, :class => 'navbar-link'  %>
-          <% else %>
-            <%= link_to "Sign up", new_charity_registration_path, :class => 'navbar-link'  %> |
-            <%= link_to "Login", new_charity_session_path, :class => 'navbar-link'  %>
-          <% end %>
-        </p>
+  <%= yield(:headers) %>
+
+  <script src="https://js.stripe.com/v3/"></script>
+
+</head>
+
+<body>
+<div class="body">
+  <%= render 'common-partials/header' %>
+  <div role="main" class="main">
+    <%= yield(:content) %>
+    <!--  custom JS for this page (assets/javascript/porto_wrapper)-->
+    <%= javascript_include_tag "porto_wrapper" %>
+    <!--
+    for the content
+    please follow the structure of the page like: home/index
+    div.container>div.row
+    -->
 
 
-      <% else !donor_signed_in? && !charity_signed_in? %>
+  </div>
 
-          <p class="navbar-text float-right">
-          <h2>Donor</h2>
-          <% if donor_signed_in? %>
-            Logged in as <strong><%= current_donor.email %></strong>.
-            <%= link_to 'Edit profile', edit_donor_registration_path, :class => 'navbar-link' %> |
-            <%= link_to "Logout", destroy_donor_session_path, method: :delete, :class => 'navbar-link'  %>
-          <% else %>
-            <%= link_to "Sign up", new_donor_registration_path, :class => 'navbar-link'  %> |
-            <%= link_to "Login", new_donor_session_path, :class => 'navbar-link'  %>
-          <% end %>
-          </p>
+  <%= yield %>
+  <%= render 'common-partials/footer' %>
+</div>
+    <script src="https://js.stripe.com/v3/"></script>
 
-        <p class="navbar-text float-right">
-          <h2>Charity</h2>
-          <% if charity_signed_in? %>
-            Logged in as <strong><%= current_charity.email %></strong>.
-            <%= link_to 'Edit profile', edit_charity_registration_path, :class => 'navbar-link' %> |
-            <%= link_to "Logout", destroy_charity_session_path, method: :delete, :class => 'navbar-link'  %>
-          <% else %>
-            <%= link_to "Sign up", new_charity_registration_path, :class => 'navbar-link'  %> |
-            <%= link_to "Login", new_charity_session_path, :class => 'navbar-link'  %>
-          <% end %>
-        </p>
-
-    
-
-
-     <% end %>
-
-
-    <%= yield %>
-  </body>
+</body>
 </html>

@@ -1,0 +1,48 @@
+<section class="section section-default section-default-scale-8">
+  <div class="container">
+    <div class="row">
+      <div class="counters counters-text-light">
+        <div class="col-md-12 col-sm-12">
+          <div class="counter">
+            <strong data-to=<%= @charity.charities_cases.where('state in("protected", "released")').count %> data-append="+">1000+</strong>
+            <label>Verified Cases with <%= @charity.name %></label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-9">
+      <div class="col-md-12">
+        <div class="feature-box">
+          <div class="feature-box-icon">
+            <i class="fa fa-group"></i>
+          </div>
+          <div class="feature-box-info">
+            <h2 class="mb-sm" id="first"><%= current_charity.name ? current_charity.name : "Undefined" %></h2>
+            <div class="divider divider-small">
+              <hr>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <dl>
+        <dt>About</dt>
+        <dd><%= current_charity.description ? current_charity.description : "Undefined" %></dd>
+
+        <dt>Phone number</dt>
+        <dd><%= current_charity.phone_number ? current_charity.phone_number : "Undefined" %></dd>
+        <dt>Address</dt>
+        <dd><%= current_charity.address ? current_charity.address : "Undefined" %></dd>
+
+        <dt>Email-Address</dt>
+        <dd><%= current_charity.email ? current_charity.email : "Undefined" %></dd>
+      </dl>
+    </div>
+  </div>
+</div>
+

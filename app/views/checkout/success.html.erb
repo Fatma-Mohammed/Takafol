@@ -1,0 +1,27 @@
+<%
+def cutter (x)
+     i=0
+    counter=x.split.count
+    $a=[]
+    while i < counter  do
+        $y=x.split(' ')[i][0].capitalize
+        i +=1
+        $a.push($y)
+     end
+     $a.join(".")
+end
+%>
+
+<div class="container">
+    <div class="row">
+        <div style="text-align: center;">
+            <h1> Donation Succeeded </h1>
+            <h4> Thank you for your donation to :   <strong> <%=  cutter(@case.name)  %> <strong> </h4>
+            <h4> With amount of : <strong> <%=  @amount_received /100 %>  <strong> EGP </h4>
+            <%= link_to  "Home Page", root_path %>
+        </div>
+    </div>
+</div>
+
+
+
