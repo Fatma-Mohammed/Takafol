@@ -26,7 +26,7 @@ gem 'validates_email_format_of'
 gem 'whenever', require: false
 gem 'kaminari'
 
-gem 'carrierwave', '~> 2.0'
+gem 'carrierwave', '~> 2.1'
 
 gem 'paypal-sdk-rest'
 # used in faking data for seeds
